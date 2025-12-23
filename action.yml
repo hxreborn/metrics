@@ -1578,7 +1578,12 @@ runs:
         # Forked action
         else
           echo "Using a forked version"
-          METRICS_IMAGE=metrics:forked-$METRICS_VERSION
+          METRICS_IMAGE=ghcr.io/hxreborn/metrics:latest
+          echo "Attempting to pull prebuilt fork image from GitHub registry"
+          if ! docker image pull $METRICS_IMAGE; then
+            echo "Failed to fetch fork docker image, will rebuild it locally"
+            METRICS_IMAGE=metrics:forked-$METRICS_VERSION
+          fi
         fi
         echo "Image name: $METRICS_IMAGE"
 
