@@ -1547,8 +1547,7 @@ runs:
         echo "Renders output folder: $METRICS_RENDERS"
 
         # Source repository
-        METRICS_SOURCE=$METRICS_ACTION_REPOSITORY
-        echo "Source: $METRICS_SOURCE"
+        echo "Source: $METRICS_ACTION_REPOSITORY"
 
         # Version (picked from package.json)
         METRICS_VERSION=$(grep -Po '(?<="version": ").*(?=")' package.json)
@@ -1560,7 +1559,7 @@ runs:
 
         # Image name
         # Official action
-        if [[ $METRICS_SOURCE == "gh-metrics/metrics" ]]; then
+        if [[ $METRICS_ACTION_REPOSITORY == "gh-metrics/metrics" ]]; then
           # Use registry with pre-built images
           if [[ ! $METRICS_USE_PREBUILT_IMAGE =~ ^([Ff]alse|[Oo]ff|[Nn]o|0)$ ]]; then
             # Is released version
@@ -1606,6 +1605,7 @@ runs:
         # Run docker image with current environment
         docker run --init --rm --volume $GITHUB_EVENT_PATH:$GITHUB_EVENT_PATH --volume $METRICS_RENDERS:/renders --env-file .env $METRICS_IMAGE
         rm .env
+
       shell: bash
       env:
         METRICS_ACTION: ${{ github.action }}
