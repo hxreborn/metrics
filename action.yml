@@ -1546,8 +1546,8 @@ runs:
         sudo mkdir -p $METRICS_RENDERS
         echo "Renders output folder: $METRICS_RENDERS"
 
-        # Source repository (picked from action name)
-        METRICS_SOURCE=$(echo $METRICS_ACTION | sed -E 's/metrics.*?$//g' | sed -E 's/_//g')
+        # Source repository
+        METRICS_SOURCE=$METRICS_ACTION_REPOSITORY
         echo "Source: $METRICS_SOURCE"
 
         # Version (picked from package.json)
@@ -1560,7 +1560,7 @@ runs:
 
         # Image name
         # Official action
-        if [[ $METRICS_SOURCE == "gh-metrics" ]]; then
+        if [[ $METRICS_SOURCE == "gh-metrics/metrics" ]]; then
           # Use registry with pre-built images
           if [[ ! $METRICS_USE_PREBUILT_IMAGE =~ ^([Ff]alse|[Oo]ff|[Nn]o|0)$ ]]; then
             # Is released version
@@ -1609,6 +1609,7 @@ runs:
       shell: bash
       env:
         METRICS_ACTION: ${{ github.action }}
+        METRICS_ACTION_REPOSITORY: ${{ github.action_repository }}
         METRICS_ACTION_PATH: ${{ github.action_path }}
         METRICS_USE_PREBUILT_IMAGE: ${{ inputs.use_prebuilt_image }}
         INPUTS: ${{ toJson(inputs) }}

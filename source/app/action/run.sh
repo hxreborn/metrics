@@ -28,8 +28,8 @@ METRICS_RENDERS="/metrics_renders"
 sudo mkdir -p $METRICS_RENDERS
 echo "Renders output folder: $METRICS_RENDERS"
 
-# Source repository (picked from action name)
-METRICS_SOURCE=$(echo $METRICS_ACTION | sed -E 's/metrics.*?$//g' | sed -E 's/_//g')
+# Source repository
+METRICS_SOURCE=$METRICS_ACTION_REPOSITORY
 echo "Source: $METRICS_SOURCE"
 
 # Version (picked from package.json)
@@ -42,7 +42,7 @@ echo "Image tag: $METRICS_TAG"
 
 # Image name
 # Official action
-if [[ $METRICS_SOURCE == "gh-metrics" ]]; then
+if [[ $METRICS_SOURCE == "gh-metrics/metrics" ]]; then
   # Use registry with pre-built images
   if [[ ! $METRICS_USE_PREBUILT_IMAGE =~ ^([Ff]alse|[Oo]ff|[Nn]o|0)$ ]]; then
     # Is released version
