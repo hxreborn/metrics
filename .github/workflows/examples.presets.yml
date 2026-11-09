@@ -1,7 +1,5 @@
 name: Publish examples (presets)
 on:
-  schedule:
-    - cron: "0 16 1/2 * *"
   workflow_dispatch:
   workflow_call:
 jobs:

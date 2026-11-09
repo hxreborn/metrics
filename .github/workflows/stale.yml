@@ -1,12 +1,11 @@
 name: Stale issues, pr and runs
 
 on:
-  schedule:
-    - cron: "30 1 * * *"
   workflow_dispatch:
 
 jobs:
   stale:
+    if: "github.repository == 'lowlighter/metrics'"
     name: Flag stale issues and pull requests
     runs-on: ubuntu-latest
     steps:
@@ -20,6 +19,7 @@ jobs:
           remove-stale-when-updated: yes
           exempt-issue-labels: 📦 dependencies
   lock:
+    if: "github.repository == 'lowlighter/metrics'"
     name: Lock inactive closed issues and pull requests
     needs:
       - stale
@@ -35,6 +35,7 @@ jobs:
           pr-lock-reason: ""
           add-pr-labels: ☑️ archived
   workflows:
+    if: "github.repository == 'lowlighter/metrics'"
     name: Remove expired workflow runs
     runs-on: ubuntu-latest
     continue-on-error: true
